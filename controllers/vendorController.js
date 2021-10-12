@@ -14,8 +14,8 @@ module.exports = {
   findById: function (req, res) {
     console.log(`Logging: ${JSON.stringify(req.params)}`);
     Vendor
-      .findByPk(req.params.id)
-      .then(dbModel => {console.log('reply: ' + dbModel) ; res.send(dbModel)})
+      .findOne({ where: {ownerId: req.params.id}})
+      .then(dbModel => {console.log('Vendor Reply: ' + JSON.stringify(dbModel)) ; res.send(dbModel)})
       .catch(err => res.status(422).json(err));
   },
   create: function (req, res) {

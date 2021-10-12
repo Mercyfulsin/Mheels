@@ -14,6 +14,7 @@ const Profile = (prop) => {
 
   useEffect(() => {
     if (!isUpdated) {
+      console.log('\r\nUse Effect\r\n');
       getVendorInfo();
       setIsUpdated(true);
     }
@@ -22,8 +23,9 @@ const Profile = (prop) => {
   function getVendorInfo() {
     API.getVendor(user.sub)
       .then(result => {
-        console.log(result)
+        console.log("Getting vendor:" + JSON.stringify(result));
         if (result.data && result.data.length) {
+          console.log("Passed check");
           const vendorInfo = result.data[0] != null ? result.data[0] : null;
           setVendorData(vendorInfo);
         }
