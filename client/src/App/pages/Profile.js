@@ -24,9 +24,10 @@ const Profile = (prop) => {
     API.getVendor(user.sub)
       .then(result => {
         console.log("Getting vendor:" + JSON.stringify(result));
-        if (result.data && result.data.length) {
-          console.log("Passed check");
-          const vendorInfo = result.data[0] != null ? result.data[0] : null;
+        if (result.data) {
+          console.log("Passed check :");
+          const vendorInfo = result.data != null ? result.data : null;
+          console.log("Vendor Info: " + JSON.stringify(vendorInfo));
           setVendorData(vendorInfo);
         }
       })
