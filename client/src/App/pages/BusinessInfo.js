@@ -36,12 +36,14 @@ class BusinessInfo extends Component {
   componentDidMount() {
     this.setState({ items: Category });
     if (this.props.vendorId) {
+      console.log("Props passed to componentDidMount = " + JSON.stringify(this.props));
       this.setState({ isupdate: true });
       API.getVendor(this.props.vendorId).then((result) => {
-        console.log(result);
-        if (result.data && result.data.length) {
-          const vendorInfo = result.data[0] != null ? result.data[0] : null;
-
+        console.log("Component Did Mount - Business Info: " + JSON.stringify(result));
+        console.log("Component Did Mount Pt2: " + JSON.stringify(result.data));
+        if (result.data) {
+          const vendorInfo = result.data != null ? result.data : null;
+          console.log("Inside of getVendor - BusinessInfo: " + JSON.stringify(vendorInfo));
           this.setState({ vendor: vendorInfo });
           this.setState({ owner: this.state.vendor.owner });
           this.setState({ storeName: this.state.vendor.storeName });
@@ -50,6 +52,7 @@ class BusinessInfo extends Component {
           this.setState({ state: this.state.vendor.state });
           this.setState({ menu: this.state.vendor.menu });
         }
+        console.log("Finished getting Vendor and setting state: " + JSON.stringify(this.state.vendor));
       });
     }
   }
@@ -104,7 +107,7 @@ class BusinessInfo extends Component {
     e.preventDefault();
     this.props.toggler();
     let updatedVendor = {
-      id: this.state.vendor._id,
+      id: this.state.vendor.ownerId,
       storeName: this.state.storeName,
       owner: this.state.owner,
       ownerId: this.state.auth0,
@@ -113,6 +116,7 @@ class BusinessInfo extends Component {
       state: this.state.state ? this.state.state : "",
       menu: this.state.vendor.menu,
     };
+    console.log("Business Info || pre-updateVendor || " + JSON.stringify(updatedVendor) + " || Vendor ID in State: " + this.state.vendor.ownerId);
     API.updateVendor(updatedVendor)
       .then((reply) => {
         this.setState({ status: 0 });

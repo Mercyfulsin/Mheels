@@ -13,7 +13,7 @@ app.use(express.static(join(__dirname, 'client/build')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-db.sequelize.sync();
+db.sequelize.sync({ force: false , alter : true });
 
 // Routes
 app.use(routes);

@@ -26,13 +26,14 @@ module.exports = {
       .catch(err => { console.log(err) ; res.status(422).json(err)});
   },
   update: function (req, res) {
-    db.Vendor
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+    console.log("Updating Vendor: " + JSON.stringify(req.params) + " || " + JSON.stringify(req.body));
+    Vendor
+      .update()
       .then(dbModel => res.json(dbModel))
       .catch(err => console.log(err));
   },
   remove: function (req, res) {
-    db.Vendor
+    Vendor
       .findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))

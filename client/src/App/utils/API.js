@@ -57,7 +57,7 @@ export default {
       state: object.state,
       categories: object.categories
     }
-    console.log(object);
+    console.log("API || updateVendor || " + JSON.stringify(object) + " || " + JSON.stringify(body) );
     return axios.put("/api/vendor/" + object.id, body);
   },
   // Update vendor custom tweet
